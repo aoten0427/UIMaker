@@ -15,6 +15,9 @@ public class SelectUIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     MoveSelctUIElement m_moveSelctUIElement;
     //ドロップイベント
     public event Action<MoveSelctUIElement> OnDragEndEvent;
+
+    [SerializeField]
+    UIElement.UIElementType m_type;
     void Awake()
     {
         m_rectTransform = GetComponent<RectTransform>();
@@ -58,6 +61,7 @@ public class SelectUIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         m_moveSelctUIElement = moveobj.AddComponent<MoveSelctUIElement>();
         m_moveSelctUIElement.OnDragEndEvent += this.OnDragEndEvent;
         m_moveSelctUIElement.m_uiData = this;
+        m_moveSelctUIElement.m_type = m_type;
         return moveobj;
     }
 }
@@ -77,6 +81,7 @@ public class MoveSelctUIElement : MonoBehaviour, IPointerDownHandler,  IPointerU
     public event Action<MoveSelctUIElement> OnDragEndEvent;
     //設置場所
     public UILocation m_location{ get; set; }
+    public UIElement.UIElementType m_type{ get; set; }
 
     void Awake()
     {

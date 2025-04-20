@@ -23,6 +23,13 @@ public class UILocation : MonoBehaviour
         RegisterToMouseFollowers();
     }
 
+    //持っているUIを返す
+    public UIElement.UIElementType GetSelectUI()
+    {
+        if (m_uiData) return m_uiData.m_type;
+        return UIElement.UIElementType.None;
+    }
+
     /// <summary>
     /// UIデータにイベントを設定
     /// </summary>

@@ -1,21 +1,11 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using R3;
+using ObservableCollections;
 using UnityEngine;
+using System.Collections.Specialized;
 
-/// <summary>
-/// プレイシーンでの処理を記述
-/// </summary>
 public class ModelUIElement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

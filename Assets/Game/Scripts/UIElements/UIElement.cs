@@ -1,33 +1,59 @@
+using R3;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// ゲーム要素UI
-/// </summary>
-public class UIElement : MonoBehaviour
+
+public abstract class UIElement : MonoBehaviour
 {
     public enum UIElementType
     {
-        Action,
-        Parameter,
-        Rule,
-        Meta
-    }
+        None,
 
-    //処理
+        // プレイヤーアクション
+        MoveLeftRight,
+        Jump,
+        Attack,
+        Defense,
+        Bow,
+        Magic,
+        Dodge,
+        Dash,
+        Grab,
+        Throw,
+        Parry,
+        Charge,
+
+        // プレイヤーステータス
+        HP,
+        MP,
+        Stamina,
+        StatusEffect,
+        Temperature,
+        ExperienceMeter,
+
+        // ゲームルール
+        TimeRemaining,
+        Score,
+        Combo,
+        EnemyCount,
+
+        // メタ
+        Settings,
+        StageName,
+        Save
+    }
     ModelUIElement m_model;
+    ViewUIElement m_view;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void SetModel(ModelUIElement model)
     {
-        
+        m_model = model;
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetView(ViewUIElement view)
     {
-        
+        m_view = view;
     }
 }

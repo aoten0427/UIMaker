@@ -757,7 +757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff30f001312530d4fbe43207324c76a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_sprite: {fileID: 21300000, guid: 4c61a0fa2f2dfc747b4e8e403a4ab378, type: 3}
+  m_type: 0
 --- !u!114 &1960610878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,7 +779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4c61a0fa2f2dfc747b4e8e403a4ab378, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
