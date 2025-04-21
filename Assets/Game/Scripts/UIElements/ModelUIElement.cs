@@ -7,5 +7,8 @@ using System.Collections.Specialized;
 
 public class ModelUIElement : MonoBehaviour
 {
-   
+   virtual public void ButtonAction(Character.Parameter parameter)
+   {
+
+   }
 }

@@ -86,5 +86,6 @@ public class SelectManager : MonoBehaviour
     void StageSelect()
     {
         SceneManager.LoadScene(m_selectStage.SceneName);
+        m_selectStage.PlayStage();
     }
 }

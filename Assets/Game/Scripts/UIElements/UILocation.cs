@@ -6,9 +6,21 @@ using UnityEngine;
 
 public class UILocation : MonoBehaviour
 {
-    //所属ステージ
+    public enum ButtonType
+    { 
+        None,
+        Up,
+        Down,
+        Left,
+        Right,
+        Z,
+        X,
+        C
+    }
+
+
     [SerializeField]
-    StageUIData m_stage;
+    ButtonType m_buttonType;
     //現在入っているUI
     MoveSelctUIElement m_uiData;
     //追加UI削除時呼び出し
@@ -24,11 +36,14 @@ public class UILocation : MonoBehaviour
     }
 
     //持っているUIを返す
-    public UIElement.UIElementType GetSelectUI()
+    public UIDataList.UIElementType GetSelectUI()
     {
         if (m_uiData) return m_uiData.m_type;
-        return UIElement.UIElementType.None;
+        return UIDataList.UIElementType.None;
     }
+
+    //ボタンの種類を返す
+    public ButtonType GetButtonType() { return m_buttonType; }
 
     /// <summary>
     /// UIデータにイベントを設定
