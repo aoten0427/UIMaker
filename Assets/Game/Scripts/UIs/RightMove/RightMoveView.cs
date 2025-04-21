@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeftMoveModel : ModelUIElement
+public class RightMoveView : ViewUIElement
 {
-    [SerializeField]
-    float m_speed = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +14,5 @@ public class LeftMoveModel : ModelUIElement
     void Update()
     {
         
-    }
-
-    public override void ButtonAction(Character.Parameter parameter)
-    {
-        parameter.m_rigidbody.AddForce(new Vector3(-m_speed, 0, 0));
     }
 }

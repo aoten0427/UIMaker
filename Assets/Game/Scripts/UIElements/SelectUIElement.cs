@@ -17,7 +17,7 @@ public class SelectUIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public event Action<MoveSelctUIElement> OnDragEndEvent;
 
     [SerializeField]
-    UIElement.UIElementType m_type;
+    UIDataList.UIElementType m_type;
     void Awake()
     {
         m_rectTransform = GetComponent<RectTransform>();
@@ -81,7 +81,7 @@ public class MoveSelctUIElement : MonoBehaviour, IPointerDownHandler,  IPointerU
     public event Action<MoveSelctUIElement> OnDragEndEvent;
     //ê›íuèÍèä
     public UILocation m_location{ get; set; }
-    public UIElement.UIElementType m_type{ get; set; }
+    public UIDataList.UIElementType m_type{ get; set; }
 
     void Awake()
     {

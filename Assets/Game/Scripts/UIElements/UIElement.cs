@@ -5,55 +5,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
+
 public abstract class UIElement : MonoBehaviour
 {
-    public enum UIElementType
-    {
-        None,
-
-        // プレイヤーアクション
-        MoveLeftRight,
-        Jump,
-        Attack,
-        Defense,
-        Bow,
-        Magic,
-        Dodge,
-        Dash,
-        Grab,
-        Throw,
-        Parry,
-        Charge,
-
-        // プレイヤーステータス
-        HP,
-        MP,
-        Stamina,
-        StatusEffect,
-        Temperature,
-        ExperienceMeter,
-
-        // ゲームルール
-        TimeRemaining,
-        Score,
-        Combo,
-        EnemyCount,
-
-        // メタ
-        Settings,
-        StageName,
-        Save
-    }
+    
+    //モデル
     ModelUIElement m_model;
+    //ビュー
     ViewUIElement m_view;
 
-    void SetModel(ModelUIElement model)
+    protected void Initailize(ModelUIElement model,ViewUIElement view)
     {
         m_model = model;
+        m_view = view;
     }
 
-    void SetView(ViewUIElement view)
+    //ボタンアクション
+    public void ButtonAction(Character.Parameter parameter)
     {
-        m_view = view;
+        m_model.ButtonAction(parameter);
     }
 }

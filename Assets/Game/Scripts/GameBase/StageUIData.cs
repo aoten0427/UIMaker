@@ -33,8 +33,26 @@ public class StageUIData : MonoBehaviour
         
     }
 
-    void PlayStage()
+    public void PlayStage()
     {
+       UIDataList datas = Resources.Load<UIDataList>("UIDataList");
 
+       //一度アクティブをオフに
+       for(int i = 0;i < datas.lists.Count;i++)
+       {
+            datas.lists[i].m_isActive = false;
+       }
+
+       //アクティブになるUIを選択
+       foreach (UILocation uiLocation in m_uis)
+       {
+           foreach (UIDataList.UIData data in datas.lists)
+           {
+                if (uiLocation.GetSelectUI() != data.m_type) continue;
+                data.m_isActive = true;
+                data.m_button = uiLocation.GetButtonType();
+                break;
+           }
+       }
     }
 }
