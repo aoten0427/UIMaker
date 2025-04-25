@@ -51,10 +51,21 @@ public class UIDataList : ScriptableObject
     [System.Serializable]
     public class UIData
     {
-        public UIElementType m_type;
-        public Sprite m_image;
+        //自身のタイプ
+        [SerializeField]
+        private UIElementType m_type;
+        //コスト
+        [SerializeField]
+        public int m_cost;
+        //アクティブフラグ
         public bool m_isActive = false;
+        //設定ボタン
         public UILocation.ButtonType m_button;
+
+        public UIElementType Type => m_type;
+        public int Cost => m_cost;
+        public bool isActive { get { return m_isActive; } set { isActive = value; } }
+        public UILocation.ButtonType Button { get { return m_button; } set { m_button = value; } }
     }
 
    

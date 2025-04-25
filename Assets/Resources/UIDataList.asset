@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lists:
   - m_type: 1
-    m_image: {fileID: 21300000, guid: 4c61a0fa2f2dfc747b4e8e403a4ab378, type: 3}
+    m_cost: 0
     m_isActive: 1
     m_button: 3
   - m_type: 2
-    m_image: {fileID: 21300000, guid: 4c61a0fa2f2dfc747b4e8e403a4ab378, type: 3}
-    m_isActive: 0
-    m_button: 0
+    m_cost: 0
+    m_isActive: 1
+    m_button: 4
   - m_type: 3
-    m_image: {fileID: 21300000, guid: 4c61a0fa2f2dfc747b4e8e403a4ab378, type: 3}
+    m_cost: 0
     m_isActive: 0
     m_button: 0
   - m_type: 4
-    m_image: {fileID: 21300000, guid: 4c61a0fa2f2dfc747b4e8e403a4ab378, type: 3}
+    m_cost: 0
     m_isActive: 0
     m_button: 0

@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class SelectUIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     //座標
-    private RectTransform m_rectTransform;
+    RectTransform m_rectTransform;
     //表示画像
-    [SerializeField]
-    private Sprite m_sprite;
+    Sprite m_sprite;
     //移動オブジェクト
     MoveSelctUIElement m_moveSelctUIElement;
     //ドロップイベント
@@ -21,6 +20,7 @@ public class SelectUIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     void Awake()
     {
         m_rectTransform = GetComponent<RectTransform>();
+        m_sprite = GetComponent<Image>().sprite;
     }
 
     /// <summary>

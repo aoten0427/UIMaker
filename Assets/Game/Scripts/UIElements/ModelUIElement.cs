@@ -5,7 +5,7 @@ using ObservableCollections;
 using UnityEngine;
 using System.Collections.Specialized;
 
-public class ModelUIElement : MonoBehaviour
+public class ModelUIElement:MonoBehaviour
 {
    virtual public void ButtonAction(Character.Parameter parameter)
    {

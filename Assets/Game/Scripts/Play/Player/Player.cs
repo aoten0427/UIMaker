@@ -16,8 +16,6 @@ public class Player : Character
         InitializeButtonAction();
     }
 
-  
-
     // Update is called once per frame
     void Update()
     {
@@ -73,6 +71,11 @@ public class Player : Character
           .AddTo(this);
     }
 
+    /// <summary>
+    /// アクションをセット
+    /// </summary>
+    /// <param name="buttonType"></param>
+    /// <param name="action"></param>
     public void SetAction(UILocation.ButtonType buttonType, Action<Character.Parameter> action)
     {
         if (buttonType == UILocation.ButtonType.None) return;

@@ -8,10 +8,8 @@ public class StageUIData : MonoBehaviour
     [SerializeField]
     string m_sceneName;
     public string SceneName { get { return m_sceneName; } }
-
     //UIÇÃê›íuèÍèä
      List<UILocation> m_uis = new List<UILocation>();
-  
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +46,7 @@ public class StageUIData : MonoBehaviour
        {
            foreach (UIDataList.UIData data in datas.lists)
            {
-                if (uiLocation.GetSelectUI() != data.m_type) continue;
+                if (uiLocation.GetSelectUI() != data.Type) continue;
                 data.m_isActive = true;
                 data.m_button = uiLocation.GetButtonType();
                 break;

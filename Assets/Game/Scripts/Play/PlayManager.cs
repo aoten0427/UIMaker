@@ -4,43 +4,38 @@ using UnityEngine;
 
 public class PlayManager : MonoBehaviour
 {
+    public static readonly string NAME = "PlayManager";
+
     [SerializeField]
     Player m_player;
-    List<UIElement> m_activeUiElement = new List<UIElement>();
-
+    GameObject m_UICenter;
+    GameObject m_ClearCenter;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        gameObject.name = NAME;
+
+        if (m_player == null) Debug.LogError("プレイヤーが存在しません");
+
+        m_UICenter = new GameObject("UICenter");
+        m_UICenter.transform.parent = transform;
+        var uicenter = m_UICenter.AddComponent<UICenter>();
+        uicenter.SetPlayer(m_player);
+
+        m_ClearCenter = new GameObject("ClearCenter");
+        m_ClearCenter.transform.parent = transform;
+        m_ClearCenter.AddComponent<ClearCenter>();
+    }
+
     void Start()
     {
-       LoadUIData();
-       //foreach(UIElement uiElement in m_activeUiElement)
-       //{
-
-       //}
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    /// <summary>
-    /// アクティブUIの作成
-    /// </summary>
-    void LoadUIData()
-    {
-        UIDataList datas = Resources.Load<UIDataList>("UIDataList");
-
-        foreach(UIDataList.UIData uIData in datas.lists)
-        {
-            //データがアクティブでないならパス
-            if (!uIData.m_isActive) continue;
-            //UIエレメント作成
-            GameObject ui = UIFactory.CreateUI(uIData.m_type);
-            ui.transform.parent = transform;
-            UIElement uiElement = ui.GetComponent<UIElement>();
-            m_activeUiElement.Add(uiElement);
-            m_player.SetAction(uIData.m_button, uiElement.ButtonAction);
-        }
     }
 }
