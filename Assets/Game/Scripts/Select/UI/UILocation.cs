@@ -18,9 +18,11 @@ public class UILocation : MonoBehaviour
         C
     }
 
-
+    //自身のボタンタイプ
     [SerializeField]
     ButtonType m_buttonType;
+    //自身の座標
+    Vector2 m_position;
     //現在入っているUI
     MoveSelctUIElement m_uiData;
     //追加UI削除時呼び出し
@@ -33,6 +35,8 @@ public class UILocation : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         // MouseFollowerスクリプトをリスナーとして登録
         RegisterToMouseFollowers();
+
+        m_position = rectTransform.anchoredPosition;
     }
 
     //持っているUIを返す
@@ -44,6 +48,9 @@ public class UILocation : MonoBehaviour
 
     //ボタンの種類を返す
     public ButtonType GetButtonType() { return m_buttonType; }
+
+    //描画位置を返す
+    public Vector2 GetPosition() { return m_position; }
 
     /// <summary>
     /// UIデータにイベントを設定
@@ -92,7 +99,7 @@ public class UILocation : MonoBehaviour
         Vector3 otherCenter = otherRect.position;
 
         // 固定オブジェクトの幅と高さの半分（受け入れ範囲）
-        Vector2 thisSize = rectTransform.rect.size;
+        Vector2 thisSize = rectTransform.rect.size * rectTransform.localScale;
         float halfWidth = thisSize.x * 0.5f;
         float halfHeight = thisSize.y * 0.5f;
 

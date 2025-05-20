@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViewUIElement : MonoBehaviour
+public class TestEnemy : EnemyBase
 {
+
+    private new void Awake()
+    {
+        base.Awake();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +20,10 @@ public class ViewUIElement : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public override void Damage(IReadDamageBox damage)
+    {
+        Debug.Log("Damage");
     }
 }

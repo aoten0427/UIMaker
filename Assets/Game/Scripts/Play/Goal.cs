@@ -16,9 +16,11 @@ public class Goal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            m_clera.Clear();
-        }
+       
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player")) m_clera.Clear();
     }
 }

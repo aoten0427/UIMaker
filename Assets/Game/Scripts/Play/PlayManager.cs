@@ -6,26 +6,42 @@ public class PlayManager : MonoBehaviour
 {
     public static readonly string NAME = "PlayManager";
 
+    //プレイヤー
     [SerializeField]
     Player m_player;
+    //UIセンター
     GameObject m_UICenter;
+    //クリアセンター
     GameObject m_ClearCenter;
-    // Start is called before the first frame update
+    //キャンバス
+    [SerializeField]
+    Canvas m_canvas;
 
-    private void Awake()
+    void Awake()
     {
+        //一つだけ存在するようにする
+        if (GameObject.Find(NAME) != null && GameObject.Find(NAME) != gameObject)
+        {
+            Destroy(gameObject);
+            return;
+        }
         gameObject.name = NAME;
 
         if (m_player == null) Debug.LogError("プレイヤーが存在しません");
 
-        m_UICenter = new GameObject("UICenter");
+        //UIセンターを生成
+        m_UICenter = new GameObject();
         m_UICenter.transform.parent = transform;
         var uicenter = m_UICenter.AddComponent<UICenter>();
         uicenter.SetPlayer(m_player);
+        uicenter.SetCanvas(m_canvas);
 
-        m_ClearCenter = new GameObject("ClearCenter");
+        //クリアセンターを生成
+        m_ClearCenter = new GameObject();
         m_ClearCenter.transform.parent = transform;
         m_ClearCenter.AddComponent<ClearCenter>();
+
+
     }
 
     void Start()

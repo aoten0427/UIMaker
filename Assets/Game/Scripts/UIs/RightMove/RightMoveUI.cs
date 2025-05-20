@@ -1,3 +1,4 @@
+using R3;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,16 @@ public class RightMoveUI : UIElement
     RightMoveModel m_rightMoveModel;
     RightMoveView m_rightMoveView;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void SuccessorInitialize()
     {
-        m_rightMoveModel = gameObject.AddComponent<RightMoveModel>();
-        m_rightMoveView = gameObject.AddComponent<RightMoveView>();
         gameObject.name = "RightMove";
-        Initailize(m_rightMoveModel, m_rightMoveView);
+        m_rightMoveModel = GetModel<RightMoveModel>();
+        m_rightMoveView = GetView<RightMoveView>();
+
+        //押された通知をセットさせる
+        m_rightMoveModel.Pushed.DistinctUntilChanged().
+            Subscribe(push => m_rightMoveView.Push(push)).
+            AddTo(this);
     }
 
     // Update is called once per frame

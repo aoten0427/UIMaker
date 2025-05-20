@@ -8,7 +8,17 @@ using UnityEngine;
 
 public class Player : Character
 {
-    Dictionary<UILocation.ButtonType, Action<Character.Parameter>> m_buttonAction = new Dictionary<UILocation.ButtonType, Action<Character.Parameter>>();
+    // 入力タイプの列挙型
+    public enum InputType
+    {
+        Press,   // 押した瞬間
+        Hold,   // 押している間
+        Release      // 離した瞬間
+    }
+
+    // キータイプごとに3種類の入力タイプに対応するアクションを格納する辞書
+    private Dictionary<UILocation.ButtonType, Dictionary<InputType, Action<Player>>> m_buttonActions =
+        new Dictionary<UILocation.ButtonType, Dictionary<InputType, Action<Player>>>();
 
     private new void Awake()
     {
@@ -16,69 +26,81 @@ public class Player : Character
         InitializeButtonAction();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// ボタンのアクションの初期化
     /// </summary>
     void InitializeButtonAction()
     {
-        m_buttonAction.Add(UILocation.ButtonType.Up, (Character.Parameter parameter) => { });
-        m_buttonAction.Add(UILocation.ButtonType.Down, (Character.Parameter parameter) => { });
-        m_buttonAction.Add(UILocation.ButtonType.Left, (Character.Parameter parameter) => { });
-        m_buttonAction.Add(UILocation.ButtonType.Right, (Character.Parameter parameter) => { });
-        m_buttonAction.Add(UILocation.ButtonType.Z, (Character.Parameter parameter) => { });
-        m_buttonAction.Add(UILocation.ButtonType.X, (Character.Parameter parameter) => { });
-        m_buttonAction.Add(UILocation.ButtonType.C, (Character.Parameter parameter) => { });
+        // すべてのボタンタイプに対して辞書を初期化
+        foreach (UILocation.ButtonType buttonType in Enum.GetValues(typeof(UILocation.ButtonType)))
+        {
+            if (buttonType == UILocation.ButtonType.None) continue;
 
-        this.UpdateAsObservable()
-          .Where(_ => Input.GetKey(KeyCode.UpArrow))
-          .Subscribe(_ => m_buttonAction[UILocation.ButtonType.Up](GetParameter()))
-          .AddTo(this);
+            m_buttonActions[buttonType] = new Dictionary<InputType, Action<Player>>
+            {
+                { InputType.Press, (Player player) => { } },
+                { InputType.Hold, (Player player) => { } },
+                { InputType.Release, (Player player) => { } }
+            };
+        }
 
-        this.UpdateAsObservable()
-          .Where(_ => Input.GetKey(KeyCode.DownArrow))
-          .Subscribe(_ => m_buttonAction[UILocation.ButtonType.Down](GetParameter()))
-          .AddTo(this);
+        // キー入力のサブスクリプション設定
+        SetupKeySubscription(KeyCode.UpArrow, UILocation.ButtonType.Up);
+        SetupKeySubscription(KeyCode.DownArrow, UILocation.ButtonType.Down);
+        SetupKeySubscription(KeyCode.LeftArrow, UILocation.ButtonType.Left);
+        SetupKeySubscription(KeyCode.RightArrow, UILocation.ButtonType.Right);
+        SetupKeySubscription(KeyCode.Z, UILocation.ButtonType.Z);
+        SetupKeySubscription(KeyCode.X, UILocation.ButtonType.X);
+        SetupKeySubscription(KeyCode.C, UILocation.ButtonType.C);
+    }
 
+    /// <summary>
+    /// キー入力のサブスクリプションを設定
+    /// </summary>
+    /// <param name="keyCode">監視するキーコード</param>
+    /// <param name="buttonType">対応するボタンタイプ</param>
+    private void SetupKeySubscription(KeyCode keyCode, UILocation.ButtonType buttonType)
+    {
+        // キーが押された瞬間
         this.UpdateAsObservable()
-          .Where(_ => Input.GetKey(KeyCode.LeftArrow))
-          .Subscribe(_ => m_buttonAction[UILocation.ButtonType.Left](GetParameter()))
-          .AddTo(this);
+            .Where(_ => Input.GetKeyDown(keyCode))
+            .Subscribe(_ => m_buttonActions[buttonType][InputType.Press](this))
+            .AddTo(this);
 
+        // キーが押されている間
         this.UpdateAsObservable()
-          .Where(_ => Input.GetKey(KeyCode.RightArrow))
-          .Subscribe(_ => m_buttonAction[UILocation.ButtonType.Right](GetParameter()))
-          .AddTo(this);
+            .Where(_ => Input.GetKey(keyCode))
+            .Subscribe(_ => m_buttonActions[buttonType][InputType.Hold](this))
+            .AddTo(this);
 
+        // キーが離された瞬間
         this.UpdateAsObservable()
-          .Where(_ => Input.GetKey(KeyCode.Z))
-          .Subscribe(_ => m_buttonAction[UILocation.ButtonType.Z](GetParameter()))
-          .AddTo(this);
-
-        this.UpdateAsObservable()
-          .Where(_ => Input.GetKey(KeyCode.X))
-          .Subscribe(_ => m_buttonAction[UILocation.ButtonType.X](GetParameter()))
-          .AddTo(this);
-
-        this.UpdateAsObservable()
-          .Where(_ => Input.GetKey(KeyCode.C))
-          .Subscribe(_ => m_buttonAction[UILocation.ButtonType.C](GetParameter()))
-          .AddTo(this);
+            .Where(_ => Input.GetKeyUp(keyCode))
+            .Subscribe(_ => m_buttonActions[buttonType][InputType.Release](this))
+            .AddTo(this);
     }
 
     /// <summary>
     /// アクションをセット
     /// </summary>
-    /// <param name="buttonType"></param>
-    /// <param name="action"></param>
-    public void SetAction(UILocation.ButtonType buttonType, Action<Character.Parameter> action)
+    /// <param name="buttonType">ボタンタイプ</param>
+    /// <param name="inputType">入力タイプ（押した瞬間/押している間/離した瞬間）</param>
+    /// <param name="action">実行するアクション</param>
+    public void SetAction(UILocation.ButtonType buttonType, InputType inputType, Action<Player> action)
     {
         if (buttonType == UILocation.ButtonType.None) return;
-        m_buttonAction[buttonType] = action;
+
+        // NULLチェック - アクションがnullの場合は空のアクションを割り当て
+        m_buttonActions[buttonType][inputType] = action ?? ((Player player) => { });
+    }
+
+    /// <summary>
+    /// 後方互換性のために元のSetActionメソッドも維持（Hold状態に割り当て）
+    /// </summary>
+    /// <param name="buttonType">ボタンタイプ</param>
+    /// <param name="action">実行するアクション</param>
+    public void SetAction(UILocation.ButtonType buttonType, Action<Player> action)
+    {
+        SetAction(buttonType, InputType.Hold, action);
     }
 }

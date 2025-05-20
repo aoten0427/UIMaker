@@ -11,7 +11,6 @@ public class StageUIData : MonoBehaviour
     //UIの設置場所
      List<UILocation> m_uis = new List<UILocation>();
 
-    // Start is called before the first frame update
     void Start()
     {
         //UIの設置場所を取得
@@ -25,12 +24,9 @@ public class StageUIData : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// プレイ開始前にUIのデータをセットする
+    /// </summary>
     public void PlayStage()
     {
        UIDataList datas = Resources.Load<UIDataList>("UIDataList");
@@ -49,6 +45,7 @@ public class StageUIData : MonoBehaviour
                 if (uiLocation.GetSelectUI() != data.Type) continue;
                 data.m_isActive = true;
                 data.m_button = uiLocation.GetButtonType();
+                data.Position = uiLocation.GetPosition();
                 break;
            }
        }

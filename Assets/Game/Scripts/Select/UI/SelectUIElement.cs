@@ -14,9 +14,11 @@ public class SelectUIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     MoveSelctUIElement m_moveSelctUIElement;
     //ドロップイベント
     public event Action<MoveSelctUIElement> OnDragEndEvent;
-
+    //UIのタイプ
     [SerializeField]
     UIDataList.UIElementType m_type;
+
+
     void Awake()
     {
         m_rectTransform = GetComponent<RectTransform>();
@@ -31,6 +33,8 @@ public class SelectUIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         CreateMoveObject();
     }
+
+
     /// <summary>
     /// 初回の呼び出し用
     /// </summary>
@@ -66,7 +70,7 @@ public class SelectUIElement : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     }
 }
 
-
+//移動中のオブジェクト
 public class MoveSelctUIElement : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler
 {
     //UIデータ

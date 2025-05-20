@@ -1,4 +1,5 @@
 
+using R3;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,16 @@ public class LeftMoveUI : UIElement
     LeftMoveModel m_leftMoveModel;
     LeftMoveView m_leftMoveView;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void SuccessorInitialize()
     {
-        m_leftMoveModel = gameObject.AddComponent<LeftMoveModel>();
-        m_leftMoveView = gameObject.AddComponent<LeftMoveView>();
         gameObject.name = "LeftMove";
-        Initailize(m_leftMoveModel, m_leftMoveView);
+        m_leftMoveModel = GetModel<LeftMoveModel>();
+        m_leftMoveView = GetView<LeftMoveView>();
+
+        //押された通知をセットさせる
+        m_leftMoveModel.Pushed.DistinctUntilChanged().
+            Subscribe(push => m_leftMoveView.Push(push)).
+            AddTo(this);
     }
 
     // Update is called once per frame
@@ -23,5 +27,8 @@ public class LeftMoveUI : UIElement
         
     }
 
-   
+    private void OnDestroy()
+    {
+        Disposable.Dispose();
+    }
 }
