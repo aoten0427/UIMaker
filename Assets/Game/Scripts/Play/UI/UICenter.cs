@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UICenter : MonoBehaviour
 {
+    //固定の名前
     public static readonly string NAME = "UICenter";
     //プレイヤー
     Player m_player;

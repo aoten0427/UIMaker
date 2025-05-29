@@ -48,6 +48,9 @@ public abstract class UIElement : MonoBehaviour
         SuccessorInitialize();
     }
 
+    /// <summary>
+    /// 各UI要素の初期化を記述
+    /// </summary>
     public abstract void SuccessorInitialize();
 
     //モデルを取得する
@@ -72,18 +75,28 @@ public abstract class UIElement : MonoBehaviour
         return view;
     }
 
-    //ボタンホールドアクション
+    /// <summary>
+    /// ボタンプレスアクション
+    /// </summary>
+    /// <param name="player"></param>
     public void ButtonHoldAction(Player player)
     {
         m_model.ButtonHoldAction(player);
     }
 
-    //ボタンプレスアクション
+    /// <summary>
+    /// ボタンプレスアクション
+    /// </summary>
+    /// <param name="player"></param>
     public void ButtonPressAction(Player player)
     {
         m_model.ButtonPressAction(player);
     }
 
+    /// <summary>
+    /// ボタンリリースアクション
+    /// </summary>
+    /// <param name="player"></param>
     public void ButtonReleaseAction(Player player)
     {
         m_model.ButtonReleaseAction(player);

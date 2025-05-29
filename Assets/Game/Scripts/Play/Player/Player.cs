@@ -8,15 +8,15 @@ using UnityEngine;
 
 public class Player : Character
 {
-    // 入力タイプの列挙型
+    // 入力タイプ
     public enum InputType
     {
-        Press,   // 押した瞬間
-        Hold,   // 押している間
-        Release      // 離した瞬間
+        Press, 
+        Hold,
+        Release 
     }
 
-    // キータイプごとに3種類の入力タイプに対応するアクションを格納する辞書
+    //キーと入力タイプとそれに対応したアクション
     private Dictionary<UILocation.ButtonType, Dictionary<InputType, Action<Player>>> m_buttonActions =
         new Dictionary<UILocation.ButtonType, Dictionary<InputType, Action<Player>>>();
 

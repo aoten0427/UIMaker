@@ -44,7 +44,9 @@ public class StageUIData : MonoBehaviour
            {
                 if (uiLocation.GetSelectUI() != data.Type) continue;
                 data.m_isActive = true;
+                //設定されているボタンを設定
                 data.m_button = uiLocation.GetButtonType();
+                //UIのポジションを設定
                 data.Position = uiLocation.GetPosition();
                 break;
            }

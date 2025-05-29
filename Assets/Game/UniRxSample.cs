@@ -44,16 +44,10 @@ public class UniRxSample : MonoBehaviour
             .Subscribe(x => Debug.Log($"PositionChanged:{x}"))
             .AddTo(this);
 
-        /*
-         * UniRx‚Å‚Ì‘‚«•û
-        this.transform.ObserveEveryValueChanged(t => t.position)
-            .Subscribe(x => Debug.Log($"PositionChanged:{x}"))
-            .AddTo(this);
-        */
+       
 
        
 
-        ////ObservableList‚ÅAdd/Remove/Replace‚ðŠÄŽ‹
         //var collection = new ObservableList<int>(); //ReactiveCollection‚Ì‘ã‚í‚è‚ÉObservableList‚ðŽg‚¤
         //collection.ObserveAdd().Subscribe(x => Debug.Log($"Add:{x}")).AddTo(this);
         //collection.ObserveRemove().Subscribe(x => Debug.Log($"Remove:{x}")).AddTo(this);

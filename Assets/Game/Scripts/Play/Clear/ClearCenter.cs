@@ -11,11 +11,19 @@ public class ClearCenter : MonoBehaviour
 {
     //付属オブジェクト名
     public static readonly string NAME = "ClearCenter";
-    //クリア時サブジェクト
-    private Subject<Unit> stageClearSubject = new Subject<Unit>();
-    //外部用オブザーバー
-    public Observable<Unit> OnStageClearAsObservable() => stageClearSubject.AsObservable();
-    
+   
+    List<IClearMaker> m_ActiveClear = new List<IClearMaker>();
+
+    //インスタンス取得
+    public static ClearCenter GetInstance()
+    {
+        GameObject clearcenter = GameObject.Find(NAME);
+        if(clearcenter == null )
+        {
+            Debug.LogError("クリアセンターは存在しません");
+        }
+        return clearcenter.GetComponent<ClearCenter>();
+    }
 
     void Awake()
     {
@@ -34,21 +42,20 @@ public class ClearCenter : MonoBehaviour
     public void StageClear()
     {
         Debug.Log("StageClear");
-        // イベントの発火
-        stageClearSubject.OnNext(Unit.Default);
+       
     }
 
-    /// <summary>
-    /// 破壊時
-    /// </summary>
-    private void OnDestroy()
+    public void RegistrationClear(IClearMaker clearMaker)
     {
-       
-         if (stageClearSubject != null)
-         {
-              stageClearSubject.OnCompleted();
-              stageClearSubject.Dispose();
-              stageClearSubject = null;
-         }
+        m_ActiveClear.Add(clearMaker);
+    }
+
+    bool IsClear()
+    {
+        foreach(IClearMaker clear in m_ActiveClear)
+        {
+            if(clear.IsClear())return true;
+        }
+        return false;
     }
 }
